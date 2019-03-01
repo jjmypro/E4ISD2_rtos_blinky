@@ -1,0 +1,106 @@
+/**
+ * @mainpage Free RTOS - first project
+ * @image 	html logo.jpg
+ * @file    E4ISD2_rtos_hello.c
+ * @brief   Application entry point.
+ */
+
+#include "FreeRTOS.h"
+#include "task.h"
+
+#include "MKL25Z4.h"
+#include "fsl_debug_console.h"
+#include "board.h"
+#include "rgbLed.h"
+
+/**
+ * @brief Sets up system hardware
+ */
+static void setupHardware(void)
+{
+	BOARD_InitBootClocks();
+	BOARD_InitDebugConsole();
+
+	init_rgb();
+	/* Initial LED0 state is off */
+	set_rgb(BLACK);
+}
+
+/**
+ * @brief LED1 toggle thread
+ * @param pvParameters
+ */
+static void vLEDTask1(void *pvParameters)
+{
+
+	while (1)
+	{
+		set_rgb(RED);
+
+		/* About a 3Hz on/off toggle rate */
+		vTaskDelay(configTICK_RATE_HZ / 3);
+	}
+}
+
+/**
+ * @brief LED2 toggle thread
+ * @param pvParameters
+ */
+static void vLEDTask2(void *pvParameters)
+{
+
+	while (1)
+	{
+		set_rgb(GREEN);
+
+		/* About a 7Hz on/off toggle rate */
+		vTaskDelay(configTICK_RATE_HZ / 7);
+	}
+}
+
+/**
+ * @brief UART (or output) thread
+ * @param pvParameters
+ */
+static void vUARTTask(void *pvParameters)
+{
+	int tickCnt = 0;
+
+	while (1)
+	{
+		/*print message*/
+		PRINTF("Tick: %d\r\n", tickCnt);
+		tickCnt++;
+
+		/* About a 1s delay here */
+		vTaskDelay(configTICK_RATE_HZ);
+	}
+}
+
+/**
+ * @brief	main routine for FreeRTOS blinky example
+ * @return	Nothing, function should not exit
+ */
+int main(void)
+{
+	setupHardware();
+
+	PRINTF("FreeRTOS example \n");
+
+	/* LED1 toggle thread */
+	xTaskCreate(vLEDTask1, "vTaskLed1",
+	configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),NULL);
+
+	/* LED2 toggle thread */
+	xTaskCreate(vLEDTask2, "vTaskLed2",
+	configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL), NULL);
+
+	/* UART output thread, simply counts seconds */
+	xTaskCreate(vUARTTask, "vTaskUart", configMINIMAL_STACK_SIZE + 80, NULL, (tskIDLE_PRIORITY + 1UL),NULL);
+
+	/* Start the scheduler */
+	vTaskStartScheduler();
+
+	/* Should never arrive here */
+	return 1;
+}
