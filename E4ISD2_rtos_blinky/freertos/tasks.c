@@ -82,6 +82,9 @@ task.h is included from an application file. */
 #include "timers.h"
 #include "StackMacros.h"
 
+/* My own includes */
+#include "gpiosetup.h"
+
 /* Lint e961 and e750 are suppressed as a MISRA exception justified because the
 MPU ports require MPU_WRAPPERS_INCLUDED_FROM_API_FILE to be defined for the
 header files above, but not in this file, in order to generate the correct
@@ -3145,6 +3148,10 @@ static portTASK_FUNCTION( prvIdleTask, pvParameters )
 
 	for( ;; )
 	{
+		// set debug GPIO pin before
+						set_pin(PIN2ON);
+		// clear debug GPIO pin after
+						set_pin(PIN2OFF);
 		/* See if any tasks have deleted themselves - if so then the idle task
 		is responsible for freeing the deleted task's TCB and stack. */
 		prvCheckTasksWaitingTermination();

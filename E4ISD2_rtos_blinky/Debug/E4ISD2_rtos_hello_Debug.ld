@@ -5,7 +5,7 @@
  * Generated linker script file for MKL25Z128xxx4
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v10.0.2 [Build 411] [2017-07-11]  on Mar 1, 2019 10:09:33 AM
+ * MCUXpresso IDE v10.0.2 [Build 411] [2017-07-11]  on Mar 1, 2019 8:00:03 PM
  */
 
 INCLUDE "E4ISD2_rtos_hello_Debug_library.ld"

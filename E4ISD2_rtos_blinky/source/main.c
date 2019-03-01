@@ -12,6 +12,7 @@
 #include "fsl_debug_console.h"
 #include "board.h"
 #include "rgbLed.h"
+#include "gpiosetup.h"
 
 /**
  * @brief Sets up system hardware
@@ -24,6 +25,9 @@ static void setupHardware(void)
 	init_rgb();
 	/* Initial LED0 state is off */
 	set_rgb(BLACK);
+
+	// setting gpios to use with analog discovery
+	init_gpio();
 }
 
 /**
@@ -35,7 +39,13 @@ static void vLEDTask1(void *pvParameters)
 
 	while (1)
 	{
+		// set debug GPIO pin before
+				set_pin(PIN5ON);
+
 		set_rgb(RED);
+
+		// clear debug GPIO pin after
+				set_pin(PIN5OFF);
 
 		/* About a 3Hz on/off toggle rate */
 		vTaskDelay(configTICK_RATE_HZ / 3);
@@ -51,7 +61,13 @@ static void vLEDTask2(void *pvParameters)
 
 	while (1)
 	{
+		// set debug GPIO pin before
+		set_pin(PIN21ON);
+
 		set_rgb(GREEN);
+
+		// clear debug GPIO pin after
+		set_pin(PIN21OFF);
 
 		/* About a 7Hz on/off toggle rate */
 		vTaskDelay(configTICK_RATE_HZ / 7);
@@ -68,12 +84,20 @@ static void vUARTTask(void *pvParameters)
 
 	while (1)
 	{
+
+		// set debug GPIO pin before
+		set_pin(PIN23ON);
+
 		/*print message*/
 		PRINTF("Tick: %d\r\n", tickCnt);
 		tickCnt++;
 
+		// clear debug GPIO pin after
+		set_pin(PIN23OFF);
+
 		/* About a 1s delay here */
 		vTaskDelay(configTICK_RATE_HZ);
+
 	}
 }
 

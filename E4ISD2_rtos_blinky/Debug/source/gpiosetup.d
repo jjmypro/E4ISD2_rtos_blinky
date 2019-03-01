@@ -1,4 +1,4 @@
-source/rgbLed.o source/rgbLed.d: ../source/rgbLed.c \
+source/gpiosetup.o source/gpiosetup.d: ../source/gpiosetup.c \
  C:\Users\Jesper\workspaceMCUXpresso\git\E4ISD2_rtos_blinky\board/pin_mux.h \
  C:\Users\Jesper\workspaceMCUXpresso\git\E4ISD2_rtos_blinky\board/clock_config.h \
  C:\Users\Jesper\workspaceMCUXpresso\git\E4ISD2_rtos_blinky\drivers/fsl_common.h \
@@ -12,7 +12,7 @@ source/rgbLed.o source/rgbLed.d: ../source/rgbLed.c \
  C:\Users\Jesper\workspaceMCUXpresso\git\E4ISD2_rtos_blinky\CMSIS/MKL25Z4_features.h \
  C:\Users\Jesper\workspaceMCUXpresso\git\E4ISD2_rtos_blinky\drivers/fsl_clock.h \
  C:\Users\Jesper\workspaceMCUXpresso\git\E4ISD2_rtos_blinky\drivers/fsl_common.h \
- ../source/rgbLed.h \
+ ../source/gpiosetup.h \
  C:\Users\Jesper\workspaceMCUXpresso\git\E4ISD2_rtos_blinky\CMSIS/MKL25Z4.H
 
 C:\Users\Jesper\workspaceMCUXpresso\git\E4ISD2_rtos_blinky\board/pin_mux.h:
@@ -41,6 +41,6 @@ C:\Users\Jesper\workspaceMCUXpresso\git\E4ISD2_rtos_blinky\drivers/fsl_clock.h:
 
 C:\Users\Jesper\workspaceMCUXpresso\git\E4ISD2_rtos_blinky\drivers/fsl_common.h:
 
-../source/rgbLed.h:
+../source/gpiosetup.h:
 
 C:\Users\Jesper\workspaceMCUXpresso\git\E4ISD2_rtos_blinky\CMSIS/MKL25Z4.H:
